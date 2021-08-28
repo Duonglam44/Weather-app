@@ -1,8 +1,10 @@
 import React from 'react'
 import { WidgetWrap, WidgetLocation, WidgetInfo, WidgetInfoTemp, WidgetInfoCenter, WidgetInfoRight } from '../styles/components/WeatherWidget'
 
-import {  BiWind,BiLogInCircle } from 'react-icons/bi'
+import { BiWind, BiLogInCircle } from 'react-icons/bi'
 import { IoWaterOutline } from "react-icons/io5"
+
+import { Spinner } from 'react-bootstrap'
 
 import cloudyNight from '../assets/icons/cloudy-night.svg'
 import cloundy from '../assets/icons/cloudy.svg'
@@ -62,7 +64,7 @@ const Countrys = [
 ]
 
 
-const WeatherWidget = ({ weather }) => {
+const WeatherWidget = ({ weather, loading }) => {
 
 
      const dt = weather?.dt
@@ -74,31 +76,48 @@ const WeatherWidget = ({ weather }) => {
 
      return (
           <WidgetWrap>
-               <WidgetLocation>
-                    <h1>{`${weather?.name} - ${country}`}</h1>
-                    <p>{`${timeConvert(dt)[0]}, ${timeConvert(dt)[1]} ${timeConvert(dt)[2]},  ${String(timeConvert(dt)[4]).slice(0, 5)}`}</p>
-               </WidgetLocation>
-               <WidgetInfo>
-                    <WidgetInfoTemp>{`${Math.floor(weather?.main.temp - 273)}°C`}</WidgetInfoTemp>
-                    <WidgetInfoCenter>
-                         <img src={WeatherIcons[weather?.weather[0].icon]} alt="" />
-                         <p>{weather?.weather[0].description}</p>
-                    </WidgetInfoCenter>
-                    <WidgetInfoRight>
-                         <div>
-                              <BiLogInCircle />
-                              <p>{`${weather?.main.pressure} hPa`}</p>
+               {
+                    loading ?
+                         <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                              <Spinner animation="grow" size="lg" variant="primary" />
+                              <Spinner animation="grow" size="lg" variant="secondary" />
+                              <Spinner animation="grow" size="lg" variant="success" />
+                              <Spinner animation="grow" size="lg" variant="danger" />
+                              <Spinner animation="grow" size="lg" variant="warning" />
+                              <Spinner animation="grow" size="lg" variant="info" />
+                              <Spinner animation="grow" size="lg" variant="light" />
+                              <Spinner animation="grow" size="lg" variant="dark" />
                          </div>
-                         <div>
-                              <IoWaterOutline />
-                              <p>{`${weather?.main.humidity} %`}</p>
-                         </div>
-                         <div>
-                              <BiWind />
-                              <p>{`${weather?.wind.speed} m/s`}</p>
-                         </div>
-                    </WidgetInfoRight>
-               </WidgetInfo>
+                         :
+                         <>
+                              <WidgetLocation>
+                                   <h1>{`${weather?.name} - ${country}`}</h1>
+                                   <p>{`${timeConvert(dt)[0]}, ${timeConvert(dt)[1]} ${timeConvert(dt)[2]},  ${String(timeConvert(dt)[4]).slice(0, 5)}`}</p>
+                              </WidgetLocation>
+                              <WidgetInfo>
+                                   <WidgetInfoTemp>{`${Math.floor(weather?.main.temp - 273)}°C`}</WidgetInfoTemp>
+                                   <WidgetInfoCenter>
+                                        <img src={WeatherIcons[weather?.weather[0].icon]} alt="" />
+                                        <p>{weather?.weather[0].description}</p>
+                                   </WidgetInfoCenter>
+                                   <WidgetInfoRight>
+                                        <div>
+                                             <BiLogInCircle />
+                                             <p>{`${weather?.main.pressure} hPa`}</p>
+                                        </div>
+                                        <div>
+                                             <IoWaterOutline />
+                                             <p>{`${weather?.main.humidity} %`}</p>
+                                        </div>
+                                        <div>
+                                             <BiWind />
+                                             <p>{`${weather?.wind.speed} m/s`}</p>
+                                        </div>
+                                   </WidgetInfoRight>
+                              </WidgetInfo>
+                         </>
+               }
+
           </WidgetWrap>
      )
 }

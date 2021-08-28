@@ -43,11 +43,13 @@ const App = () => {
 
   const [inputCity, setInputCity] = useState('london')
   const [weather, setWeather] = useState()
+  const [loading, setLoading] = useState(false)
 
   const fetchApiWeather = async () => {
     try {
       const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${API_KEY}`)
       setWeather(response.data)
+      setLoading(false)
       console.log(response.data)
     } catch (error) {
       alert('Can not find this City! plese try again!!!')
@@ -57,6 +59,9 @@ const App = () => {
     fetchApiWeather()
   }, [inputCity])
 
+  useEffect(() => {
+    setLoading(true)
+  }, [])
 
   return (
     <>
@@ -67,6 +72,7 @@ const App = () => {
         />
         <WeatherWidget
           weather={weather}
+          loading={loading}
         />
       </Wrapper>
     </>
