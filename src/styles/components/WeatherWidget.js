@@ -40,7 +40,7 @@ export const WidgetLocation = styled.div`
      }
 `
 export const WidgetInfo = styled.div`
-     margin-top: 30px;
+     margin-top: 20px;
      display: flex; 
      justify-content: center;
      align-items: center;
@@ -57,7 +57,7 @@ export const WidgetInfoCenter = styled.div`
      width: 30%;
      & img{
           width: 100%;
-          height: 200px;
+          height: 160px;
      }
      & p{
           margin-top: 10px;
