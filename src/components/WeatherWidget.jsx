@@ -17,6 +17,7 @@ import storm from '../assets/icons/storm.svg'
 
 
 const WeatherIcons = {
+     "01d": day,
      "01n": night,
      "02d": day,
      "02n": cloudyNight,
